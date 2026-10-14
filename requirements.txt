@@ -1,4 +1,6 @@
 Flask
 gunicorn
 pypdf
+pandas
+openpyxl
 Werkzeug
