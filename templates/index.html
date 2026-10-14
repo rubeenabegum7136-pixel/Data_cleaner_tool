@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusAI — Intelligent File & Data Processor</title>
+    <title>NexusAI — Autonomous Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --border-color: #1f2937;
+            --border-focus: #3b82f6;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
             --accent: #3b82f6;
             --accent-hover: #2563eb;
+            --success-bg: rgba(16, 185, 129, 0.1);
+            --success-text: #34d399;
         }
 
         body {
@@ -21,162 +24,198 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             margin: 0;
-            padding: 40px 20px;
+            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
         }
 
-        .container {
+        .main-wrapper {
             width: 100%;
-            max-width: 680px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            max-width: 720px;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .header {
+        .hero-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        .badge {
-            display: inline-block;
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             background: rgba(59, 130, 246, 0.1);
             color: var(--accent);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             border: 1px solid rgba(59, 130, 246, 0.2);
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
-        h2 {
+        h1 {
             margin: 0 0 10px 0;
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         p {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 15px;
             margin: 0;
             line-height: 1.5;
         }
 
-        /* AI Prompt Box Container */
-        .ai-prompt-wrapper {
-            background: rgba(15, 23, 42, 0.6);
+        /* ChatGPT Style Chat Prompt Box Container */
+        .chat-box-container {
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 12px;
-            margin-top: 20px;
-            transition: border-color 0.2s;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .ai-prompt-wrapper:focus-within {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        .chat-box-container:focus-within {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), 0 20px 25px -5px rgba(0, 0, 0, 0.4);
         }
 
-        .ai-textarea {
+        .chat-textarea {
             width: 100%;
             background: transparent;
             border: none;
             color: var(--text-primary);
-            font-size: 14px;
+            font-size: 15px;
             font-family: 'Inter', sans-serif;
             resize: none;
             outline: none;
-            height: 80px;
+            height: 90px;
             box-sizing: border-box;
             padding: 4px;
+            line-height: 1.5;
         }
 
-        .ai-toolbar {
+        .chat-textarea::placeholder {
+            color: #6b7280;
+        }
+
+        /* File attached pill preview */
+        .file-preview-pill {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            width: fit-content;
+            margin-bottom: 12px;
+        }
+
+        .file-preview-pill span {
+            cursor: pointer;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+        .file-preview-pill span:hover {
+            opacity: 1;
+        }
+
+        .chat-toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(51, 65, 85, 0.5);
-            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
             margin-top: 8px;
         }
 
-        /* Plus Attachment Button Style */
-        .attach-btn-wrapper {
-            position: relative;
-            display: inline-block;
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        /* Plus Attachment Button */
         .plus-btn {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-primary);
             border: 1px solid var(--border-color);
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 22px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
+            transition: all 0.2s ease;
         }
 
         .plus-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(59, 130, 246, 0.15);
             border-color: var(--accent);
             color: var(--accent);
+            transform: scale(1.05);
         }
 
-        /* Hidden real file input */
         .hidden-file-input {
             display: none;
         }
 
-        .file-status {
-            font-size: 12px;
-            color: var(--success, #10b981);
-            margin-left: 10px;
-            font-weight: 500;
+        .file-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
-        .submit-btn {
+        .send-btn {
             background: var(--accent);
             color: white;
             border: none;
-            border-radius: 8px;
-            padding: 8px 18px;
+            border-radius: 10px;
+            padding: 10px 20px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.1s;
         }
 
-        .submit-btn:hover {
+        .send-btn:hover {
             background: var(--accent-hover);
         }
 
-        .chips-container {
+        .send-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Prompt Suggestion Chips */
+        .suggestions {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .chip {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            font-size: 12px;
-            padding: 6px 10px;
-            border-radius: 6px;
+            font-size: 13px;
+            padding: 7px 14px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -190,48 +229,87 @@
         .footer-note {
             text-align: center;
             font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 25px;
+            color: #6b7280;
+            margin-top: 35px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <span class="badge">✨ Autonomous AI Engine</span>
-            <h2>Nexus Data Intelligence</h2>
-            <p>Attach your file using the '+' button, type your instruction, and run the pipeline.</p>
+    <div class="main-wrapper">
+        <div class="hero-section">
+            <div class="ai-badge">✨ Autonomous AI Engine</div>
+            <h1>Nexus Data Intelligence</h1>
+            <p>Attach your PDF or data file using the '+' button, enter your prompt, and run the pipeline.</p>
         </div>
 
         <form action="/upload" method="POST" enctype="multipart/form-data">
             
-            <div class="ai-prompt-wrapper">
+            <div class="chat-box-container">
+                <!-- Attached File Preview Pill -->
+                <div id="filePreview" class="file-preview-pill">
+                    📄 <span id="fileNameDisplay">file.pdf</span>
+                    <span onclick="removeFile()" title="Remove file">&times;</span>
+                </div>
+
                 <!-- Instruction Text Area -->
-                <textarea class="ai-textarea" id="instructionBox" name="instruction" placeholder="Ask AI to process file (e.g., extract emails, remove duplicates, uppercase)..." required></textarea>
+                <textarea class="chat-textarea" id="instructionBox" name="instruction" placeholder="Ask AI to process file (e.g., extract emails, remove duplicates, mask privacy)..." required></textarea>
                 
-                <div class="ai-toolbar">
-                    <div style="display: flex; align-items: center;">
+                <div class="chat-toolbar">
+                    <div class="toolbar-left">
                         <!-- Plus Attachment Button -->
-                        <div class="attach-btn-wrapper">
-                            <button type="button" class="plus-btn" onclick="document.getElementById('fileInput').click()" title="Attach File">+</button>
-                            <input type="file" id="fileInput" name="file" class="hidden-file-input" accept=".txt,.csv" onchange="showFileName(this)" required>
-                        </div>
-                        <span id="fileStatus" class="file-status">No file attached</span>
+                        <button type="button" class="plus-btn" onclick="document.getElementById('fileInput').click()" title="Attach PDF, TXT or CSV">+</button>
+                        <input type="file" id="fileInput" name="file" class="hidden-file-input" accept=".txt,.csv,.pdf" onchange="handleFileSelect(this)" required>
+                        <span id="fileHint" class="file-hint">Attach file (.pdf, .txt, .csv)</span>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="submit-btn">Run Pipeline</button>
+                    <button type="submit" class="send-btn">Run Pipeline ➔</button>
                 </div>
             </div>
 
             <!-- Quick Suggestion Chips -->
-            <div class="chips-container">
-                <div class="chip" onclick="setCommand('extract emails')">Extract Emails</div>
-                <div class="chip" onclick="setCommand('extract phone')">Extract Phones</div>
-                <div class="chip" onclick="setCommand('remove duplicates')">Deduplicate</div>
-                <div class="chip" onclick="setCommand('mask privacy')">Mask Sensitive Data</div>
-                <div class="chip" onclick="setCommand('uppercase')">Uppercase</div>
+            <div class="suggestions">
+                <div class="chip" onclick="setCommand('Extract all email addresses from this document')">📧 Extract Emails</div>
+                <div class="chip" onclick="setCommand('Extract all phone numbers')">📱 Extract Phones</div>
+                <div class="chip" onclick="setCommand('Remove duplicate lines and clean up data')">✨ Deduplicate</div>
+                <div class="chip" onclick="setCommand('Mask sensitive data and verification pins')">🔒 Mask Privacy</div>
+                <div class="chip" onclick="setCommand('Convert text to uppercase')">🔠 Uppercase</div>
             </div>
 
         </form>
+
+        <div class="footer-note">
+            Secure 256-bit automated pipeline • Runs 24/7 on cloud infrastructure
+        </div>
+    </div>
+
+    <script>
+        function setCommand(cmd) {
+            document.getElementById('instructionBox').value = cmd;
+        }
+
+        function handleFileSelect(input) {
+            const preview = document.getElementById('filePreview');
+            const nameDisplay = document.getElementById('fileNameDisplay');
+            const hint = document.getElementById('fileHint');
+
+            if (input.files && input.files[0]) {
+                nameDisplay.textContent = input.files[0].name;
+                preview.style.display = 'inline-flex';
+                hint.style.display = 'none';
+            }
+        }
+
+        function removeFile() {
+            const input = document.getElementById('fileInput');
+            const preview = document.getElementById('filePreview');
+            const hint = document.getElementById('fileHint');
+
+            input.value = '';
+            preview.style.display = 'none';
+            hint.style.display = 'inline';
+        }
+    </script>
+</body>
+</html>
