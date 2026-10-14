@@ -32,7 +32,7 @@ def extract_text_from_file(filepath, filename):
     return text
 
 @app.route('/')
-index():
+def index():
     return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
@@ -74,13 +74,11 @@ def upload_file():
                     processed_lines.append(cleaned)
         elif 'mask' in instruction or 'privacy' in instruction:
             import re
-            # Mask 4-digit codes or pins
             masked = re.sub(r'\b\d{4}\b', '**', content)
             processed_lines = masked.splitlines()
         elif 'upper' in instruction:
             processed_lines = [line.upper() for line in lines]
         else:
-            # Default: clean formatting
             processed_lines = [line.strip() for line in lines if line.strip()]
 
         # Save output result
