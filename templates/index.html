@@ -1,0 +1,33 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instant Data Cleaner Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 40px; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        h2 { color: #333; }
+        textarea { width: 100%; height: 150px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; margin-top: 10px; font-family: monospace; }
+        button { background: #28a745; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 15px; }
+        button:hover { background: #218838; }
+        .result-box { margin-top: 25px; background: #e9ecef; padding: 15px; border-radius: 4px; white-space: pre-wrap; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🛠️ Automated Data & Text Cleaner</h2>
+        <p>Paste your messy text or list below, and the system will instantly format and clean it.</p>
+        
+        <form action="/process" method="POST">
+            <textarea name="raw_text" placeholder="Paste messy data here...">{% if original %}{{ original }}{% endif %}</textarea>
+            <br>
+            <button type="submit">Clean Data Instantly</button>
+        </form>
+
+        {% if result %}
+            <h3>Cleaned Output:</h3>
+            <div class="result-box">{{ result }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
