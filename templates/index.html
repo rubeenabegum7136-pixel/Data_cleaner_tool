@@ -14,7 +14,6 @@
             --text-secondary: #94a3b8;
             --accent: #3b82f6;
             --accent-hover: #2563eb;
-            --success: #10b981;
         }
 
         body {
@@ -37,12 +36,12 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 40px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .badge {
@@ -55,7 +54,6 @@
             border-radius: 20px;
             margin-bottom: 12px;
             border: 1px solid rgba(59, 130, 246, 0.2);
-            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
@@ -63,7 +61,6 @@
             margin: 0 0 10px 0;
             font-size: 24px;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         p {
@@ -73,61 +70,104 @@
             line-height: 1.5;
         }
 
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .file-dropzone {
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            background: rgba(15, 23, 42, 0.4);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .file-dropzone:hover {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.03);
-        }
-
-        input[type="file"] {
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        input[type="text"] {
-            width: 100%;
+        /* AI Prompt Box Container */
+        .ai-prompt-wrapper {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 14px 16px;
-            color: var(--text-primary);
-            font-size: 14px;
-            box-sizing: border-box;
-            outline: none;
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 20px;
             transition: border-color 0.2s;
         }
 
-        input[type="text"]:focus {
+        .ai-prompt-wrapper:focus-within {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .ai-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            resize: none;
+            outline: none;
+            height: 80px;
+            box-sizing: border-box;
+            padding: 4px;
+        }
+
+        .ai-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
+            padding-top: 10px;
+            margin-top: 8px;
+        }
+
+        /* Plus Attachment Button Style */
+        .attach-btn-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .plus-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .plus-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Hidden real file input */
+        .hidden-file-input {
+            display: none;
+        }
+
+        .file-status {
+            font-size: 12px;
+            color: var(--success, #10b981);
+            margin-left: 10px;
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-hover);
         }
 
         .chips-container {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         .chip {
@@ -147,28 +187,6 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
 
-        .submit-btn {
-            width: 100%;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
-
-        .submit-btn:hover {
-            background: var(--accent-hover);
-        }
-
-        .submit-btn:active {
-            transform: scale(0.99);
-        }
-
         .footer-note {
             text-align: center;
             font-size: 12px;
@@ -183,42 +201,37 @@
         <div class="header">
             <span class="badge">✨ Autonomous AI Engine</span>
             <h2>Nexus Data Intelligence</h2>
-            <p>Drop your raw files and instruct the neural pipeline to clean, parse, and transform data instantly.</p>
+            <p>Attach your file using the '+' button, type your instruction, and run the pipeline.</p>
         </div>
 
         <form action="/upload" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label>1. Target Source File (.txt, .csv — Max 5MB)</label>
-                <div class="file-dropzone">
-                    <input type="file" name="file" accept=".txt,.csv" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>2. Processing Instruction</label>
-                <input type="text" id="instructionBox" name="instruction" placeholder="e.g., extract emails, remove duplicates, uppercase..." required>
+            
+            <div class="ai-prompt-wrapper">
+                <!-- Instruction Text Area -->
+                <textarea class="ai-textarea" id="instructionBox" name="instruction" placeholder="Ask AI to process file (e.g., extract emails, remove duplicates, uppercase)..." required></textarea>
                 
-                <div class="chips-container">
-                    <div class="chip" onclick="setCommand('extract emails')">Extract Emails</div>
-                    <div class="chip" onclick="setCommand('extract phone')">Extract Phones</div>
-                    <div class="chip" onclick="setCommand('remove duplicates')">Deduplicate</div>
-                    <div class="chip" onclick="setCommand('mask privacy')">Mask Sensitive Data</div>
-                    <div class="chip" onclick="setCommand('uppercase')">Uppercase</div>
+                <div class="ai-toolbar">
+                    <div style="display: flex; align-items: center;">
+                        <!-- Plus Attachment Button -->
+                        <div class="attach-btn-wrapper">
+                            <button type="button" class="plus-btn" onclick="document.getElementById('fileInput').click()" title="Attach File">+</button>
+                            <input type="file" id="fileInput" name="file" class="hidden-file-input" accept=".txt,.csv" onchange="showFileName(this)" required>
+                        </div>
+                        <span id="fileStatus" class="file-status">No file attached</span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">Run Pipeline</button>
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">Execute Pipeline & Download</button>
+            <!-- Quick Suggestion Chips -->
+            <div class="chips-container">
+                <div class="chip" onclick="setCommand('extract emails')">Extract Emails</div>
+                <div class="chip" onclick="setCommand('extract phone')">Extract Phones</div>
+                <div class="chip" onclick="setCommand('remove duplicates')">Deduplicate</div>
+                <div class="chip" onclick="setCommand('mask privacy')">Mask Sensitive Data</div>
+                <div class="chip" onclick="setCommand('uppercase')">Uppercase</div>
+            </div>
+
         </form>
-
-        <div class="footer-note">
-            Secure 256-bit automated pipeline • Runs 24/7 on cloud infrastructure
-        </div>
-    </div>
-
-    <script>
-        function setCommand(cmd) {
-            document.getElementById('instructionBox').value = cmd;
-        }
-    </script>
-</body>
-</html>
