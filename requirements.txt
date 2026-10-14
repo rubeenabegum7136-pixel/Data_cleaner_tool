@@ -1,6 +1,5 @@
 Flask
 gunicorn
 pypdf
-pandas
-openpyxl
+reportlab
 Werkzeug
