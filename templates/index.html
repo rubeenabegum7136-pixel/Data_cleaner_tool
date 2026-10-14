@@ -2,52 +2,223 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All-in-One Smart Data & File Processor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI — Intelligent File & Data Processor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 40px; }
-        .container { max-width: 750px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        h2 { color: #333; }
-        textarea, input[type="text"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; margin-top: 8px; font-family: monospace; box-sizing: border-box; }
-        textarea { height: 100px; }
-        button { background: #28a745; color: white; border: none; padding: 10px 18px; font-size: 15px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-        button:hover { background: #218838; }
-        .section { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-        .file-upload-box { background: #e2f0d9; padding: 20px; border-radius: 6px; border: 1px dashed #28a745; margin-top: 15px; }
-        label { font-weight: bold; color: #444; display: block; margin-top: 10px; }
-        .feature-tips { background: #fff3cd; border: 1px solid #ffeeba; padding: 12px; border-radius: 4px; font-size: 14px; margin-top: 10px; color: #856404; }
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .file-dropzone {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-dropzone:hover {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        input[type="file"] {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .chip:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 25px;
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h2>🛠️ All-in-One File & Data Assistant</h2>
-        <p>One powerful tool to clean, format, extract, and secure your files instantly on autopilot.</p>
-        
-        <div class="section" style="margin-top:0; border-top:none;">
-            <h3>📁 Upload File & Give Your Command</h3>
-            
-            <div class="file-upload-box">
-                <form action="/upload" method="POST" enctype="multipart/form-data">
-                    <label>1. Select File (.txt or .csv only, Max 5MB):</label>
+        <div class="header">
+            <span class="badge">✨ Autonomous AI Engine</span>
+            <h2>Nexus Data Intelligence</h2>
+            <p>Drop your raw files and instruct the neural pipeline to clean, parse, and transform data instantly.</p>
+        </div>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>1. Target Source File (.txt, .csv — Max 5MB)</label>
+                <div class="file-dropzone">
                     <input type="file" name="file" accept=".txt,.csv" required>
-                    
-                    <label>2. What do you want to do?</label>
-                    <input type="text" name="instruction" placeholder="e.g., extract emails, remove duplicates, mask privacy..." required>
-                    
-                    <div class="feature-tips">
-                        <b>Available Commands You Can Type:</b>
-                        <ul style="margin: 5px 0 0 20px; padding:0;">
-                            <li><code>extract emails</code> - Grabs unique email addresses</li>
-                            <li><code>extract phone</code> - Grabs valid phone numbers</li>
-                            <li><code>remove duplicates</code> - Cleans out repeated rows</li>
-                            <li><code>mask privacy</code> - Redacts sensitive digits</li>
-                            <li><code>uppercase</code> - Converts text to capital letters</li>
-                        </ul>
-                    </div>
-                    
-                    <button type="submit" style="background: #007bff; width: 100%; margin-top: 15px;">Process & Download File</button>
-                </form>
+                </div>
             </div>
+
+            <div class="form-group">
+                <label>2. Processing Instruction</label>
+                <input type="text" id="instructionBox" name="instruction" placeholder="e.g., extract emails, remove duplicates, uppercase..." required>
+                
+                <div class="chips-container">
+                    <div class="chip" onclick="setCommand('extract emails')">Extract Emails</div>
+                    <div class="chip" onclick="setCommand('extract phone')">Extract Phones</div>
+                    <div class="chip" onclick="setCommand('remove duplicates')">Deduplicate</div>
+                    <div class="chip" onclick="setCommand('mask privacy')">Mask Sensitive Data</div>
+                    <div class="chip" onclick="setCommand('uppercase')">Uppercase</div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Execute Pipeline & Download</button>
+        </form>
+
+        <div class="footer-note">
+            Secure 256-bit automated pipeline • Runs 24/7 on cloud infrastructure
         </div>
     </div>
+
+    <script>
+        function setCommand(cmd) {
+            document.getElementById('instructionBox').value = cmd;
+        }
+    </script>
 </body>
 </html>
